@@ -1,6 +1,7 @@
 const xhr = new XMLHttpRequest();
 
 xhr.open('GET', './movies.json');
+xhr.open('GET', 'https://api.github.com/users/bradtraversy/repos');
 
 /*
 readyState has 5 possible values
@@ -17,9 +18,14 @@ xhr.onreadystatechange = function (){
      //console.log(JSON.parse(this.responseText));   
         const data = JSON.parse(this.responseText);
 
-        data.forEach(movie => {
+        data.forEach((movie) => {
             const li = document.createElement('li');
             li.innerHTML = `<strong>${movie.title}</strong> - ${movie.year}`;
+            document.querySelector('#results').appendChild(li);
+        });
+        data.forEach((repo) => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${repo.name}</strong> - ${repo.description}`;
             document.querySelector('#results').appendChild(li);
         });
     }
